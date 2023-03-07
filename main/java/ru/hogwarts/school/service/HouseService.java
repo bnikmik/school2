@@ -10,8 +10,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class HouseService {
-    private Map<Long, Faculty> faculties = new HashMap<>();
-    private Long generatedFacultyId = 1L;
+    private final Map<Long, Faculty> faculties;
+    private Long generatedFacultyId;
+
+    public HouseService() {
+        this.faculties = new HashMap<>();
+        this.generatedFacultyId = 1L;
+    }
 
     public Faculty createFaculty(Faculty faculty) {
         faculty.setId(generatedFacultyId);

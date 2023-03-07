@@ -10,8 +10,13 @@ import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
-    private Map<Long, Student> students = new HashMap<>();
-    private Long generatedStudentId = 1L;
+    private final Map<Long, Student> students;
+    private Long generatedStudentId;
+
+    public StudentService() {
+        this.students =  new HashMap<>();
+        this.generatedStudentId = 1L;
+    }
 
     public Student createStudent(Student student) {
         student.setId(generatedStudentId);
