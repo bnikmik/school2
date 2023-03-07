@@ -8,7 +8,7 @@ import ru.hogwarts.school.service.HouseService;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@RequestMapping("faculty")
+@RequestMapping("api")
 @RestController
 public class HouseController {
     HouseService houseService;
@@ -17,13 +17,13 @@ public class HouseController {
         this.houseService = houseService;
     }
 
-    @PostMapping
+    @PostMapping("/faculty")
     public ResponseEntity<Faculty> createFaculty(@RequestBody Faculty faculty) {
         Faculty createdFaculty = houseService.createFaculty(faculty);
         return ResponseEntity.ok(createdFaculty);
     }
 
-    @GetMapping("{facultyId}")
+    @GetMapping("/faculty/{facultyId}")
     public ResponseEntity<Faculty> getFaculty(@PathVariable Long facultyId) {
         Faculty faculty = houseService.getFaculty(facultyId);
         if (faculty == null) {
@@ -32,13 +32,13 @@ public class HouseController {
         return ResponseEntity.ok(faculty);
     }
 
-    @PutMapping
+    @PutMapping("/faculty")
     public ResponseEntity<Faculty> updateFaculty(@RequestBody Faculty faculty) {
         Faculty updatedFaculty = houseService.updateFaculty(faculty.getId(), faculty);
         return ResponseEntity.ok(updatedFaculty);
     }
 
-    @DeleteMapping("{facultyId}")
+    @DeleteMapping("/faculty/{facultyId}")
     public ResponseEntity<Faculty> deleteFaculty(@PathVariable Long facultyId) {
         Faculty faculty = houseService.deleteFaculty(facultyId);
         if (faculty == null) {
@@ -47,7 +47,7 @@ public class HouseController {
         return ResponseEntity.ok(faculty);
     }
 
-    @GetMapping("/get-by-color")
+    @GetMapping("/faculties")
     public ResponseEntity<Collection<Faculty>> getAllStudentsByAge(@RequestParam String color) {
         return ResponseEntity.ok(houseService.getAllFaculties().stream()
                 .filter(student -> student.getColor().equals(color))

@@ -8,7 +8,7 @@ import ru.hogwarts.school.service.StudentService;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
-@RequestMapping("student")
+@RequestMapping("api")
 @RestController
 public class StudentController {
     StudentService studentService;
@@ -17,13 +17,13 @@ public class StudentController {
         this.studentService = studentService;
     }
 
-    @PostMapping
+    @PostMapping("/student")
     public ResponseEntity<Student> createStudent(@RequestBody Student student) {
         Student createdStudent = studentService.createStudent(student);
         return ResponseEntity.ok(createdStudent);
     }
 
-    @GetMapping("/{studentId}")
+    @GetMapping("/student/{studentId}")
     public ResponseEntity<Student> getStudent(@PathVariable Long studentId) {
         Student student = studentService.getStudent(studentId);
         if (student == null) {
@@ -32,13 +32,13 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
-    @PutMapping
+    @PutMapping("/student")
     public ResponseEntity<Student> updateStudent(@RequestBody Student student) {
         Student updatedStudent = studentService.updateStudent(student.getId(), student);
         return ResponseEntity.ok(updatedStudent);
     }
 
-    @DeleteMapping("/{studentId}")
+    @DeleteMapping("/student/{studentId}")
     public ResponseEntity<Student> deleteStudent(@PathVariable Long studentId) {
         Student student = studentService.deleteStudent(studentId);
         if (student == null) {
@@ -47,7 +47,7 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
-    @GetMapping("/get-by-age/")
+    @GetMapping("/students")
     public ResponseEntity<Collection<Student>> getAllStudentsByAge(@RequestParam int age) {
         return ResponseEntity.ok(studentService.getAllStudents().stream()
                 .filter(student -> student.getAge() == age)
