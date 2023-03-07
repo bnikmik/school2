@@ -47,8 +47,8 @@ public class HouseController {
         return ResponseEntity.ok(faculty);
     }
 
-    @GetMapping("/get-by-color/{color}")
-    public ResponseEntity<Collection<Faculty>> getAllStudentsByAge(@PathVariable String color) {
+    @GetMapping("/get-by-color/")
+    public ResponseEntity<Collection<Faculty>> getAllStudentsByAge(@RequestParam String color) {
         return ResponseEntity.ok(houseService.getAllFaculties().stream()
                 .filter(student -> student.getColor().equals(color))
                 .collect(Collectors.toList()));

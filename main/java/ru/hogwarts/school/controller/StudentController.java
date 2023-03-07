@@ -47,8 +47,8 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
-    @GetMapping("/get-by-age/{age}")
-    public ResponseEntity<Collection<Student>> getAllStudentsByAge(@PathVariable int age) {
+    @GetMapping("/get-by-age/")
+    public ResponseEntity<Collection<Student>> getAllStudentsByAge(@RequestParam int age) {
         return ResponseEntity.ok(studentService.getAllStudents().stream()
                 .filter(student -> student.getAge() == age)
                 .collect(Collectors.toList()));
